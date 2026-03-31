@@ -8,5 +8,13 @@ description "A fully featured Gun Game script for FiveM with progressive weapon 
 shared_scripts {
   "@ox_lib/init.lua",
   "config.lua",
-  "bridge/init.lua"
+}
+
+server_scripts {
+  "bridge/init.lua",
+  "server/lobbies.lua"
+}
+
+client_scripts {
+  "client/menus.lua"
 }
