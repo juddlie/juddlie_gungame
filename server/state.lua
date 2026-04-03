@@ -61,7 +61,7 @@ end
 
 ---@param selectedWeapons any
 ---@return number[]
-function state.normalizeWeapons(selectedWeapons)
+function state.getWeapons(selectedWeapons)
   local weaponIndices <const> = {}
   local seen <const> = {}
 
@@ -217,10 +217,8 @@ end
 ---@param lobby table
 ---@param excludePlayerId number?
 ---@return number?
-function state.resolveSpectateTarget(lobby, excludePlayerId)
-  if not lobby.started then
-    return nil
-  end
+function state.getSpectateTarget(lobby, excludePlayerId)
+  if not lobby.started then return end
 
   local fallback = nil
 

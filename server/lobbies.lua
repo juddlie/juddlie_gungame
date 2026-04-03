@@ -13,7 +13,7 @@ RegisterNetEvent("gungame:server:createLobby", function(data)
     return
   end
 
-  local weaponIndices <const> = state.normalizeWeapons(data.weapons)
+  local weaponIndices <const> = state.getWeapons(data.weapons)
   if #weaponIndices == 0 then
     bridge.notify(playerId, "Select at least one weapon tier", "error")
     return

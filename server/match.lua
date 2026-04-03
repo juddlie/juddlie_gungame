@@ -7,7 +7,7 @@ local config <const> = require("config")
 local function startLobby(lobby)
   lobby.started = true
 
-  local targetServerId <const> = state.resolveSpectateTarget(lobby, nil)
+  local targetServerId <const> = state.getSpectateTarget(lobby, nil)
   for playerId, member in pairs(lobby.members) do
     local payload <const> = state.getState(lobby, playerId, {
       started = true,
