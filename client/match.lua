@@ -96,7 +96,7 @@ end
 
 ---@param attackerServerId? number
 local function handleDeath(attackerServerId)
-  if not (state.started and state.reportedDeath) then return end
+  if not state.started or state.reportedDeath then return end
   if state.spectating or state.spectator then return end
 
   state.reportedDeath = true
@@ -182,23 +182,18 @@ RegisterNetEvent("gungame:client:clearLobbyState", function(data)
 end)
 
 AddEventHandler("gameEventTriggered", function(eventName, args)
-  if eventName ~= "CEventNetworkEntityDamage" or state.reportedDeath then
-    return
-  end
-
-  if type(args) ~= "table" then return end
+  if eventName ~= "CEventNetworkEntityDamage" then return end
+  if state.reportedDeath then return end
 
   local victim <const> = args[1]
   local attacker <const> = args[2]
   local fatal <const> = args[6]
-  if victim ~= cache.ped or fatal ~= true then
-    return
-  end
+  if victim ~= cache.ped or not fatal then return end
 
   local attackerServerId = nil
-  if attacker and attacker ~= 0 then
+  if attacker and attacker > 0 then
     local attackerPlayer <const> = NetworkGetPlayerIndexFromPed(attacker)
-    if attackerPlayer ~= -1 then
+    if attackerPlayer > -1 then
       attackerServerId = GetPlayerServerId(attackerPlayer)
     end
   end

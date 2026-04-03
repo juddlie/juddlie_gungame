@@ -1,6 +1,6 @@
 local config = {}
 
----@type "esx" | "ox"
+---@type "esx" | "qbx"
 config.framework = "esx"
 
 config.interaction = {
@@ -30,12 +30,12 @@ config.game = {
 
 config.rewards = {
   kill = {
-    amount = 0,
+    amount = 1000,
     account = "money",
     item = nil,
   },
   win = {
-    amount = 0,
+    amount = 1000,
     account = "money",
     item = nil,
   },
