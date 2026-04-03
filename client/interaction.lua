@@ -4,7 +4,7 @@ local config <const> = require("config")
 
 local interactionPed
 
----@param data { coords: table, marker?: boolean }
+---@param data { coords: table }
 local function createPoint(data)
     local point <const> = lib.points.new({
     coords = data.coords,
@@ -59,7 +59,7 @@ AddEventHandler("onResourceStart", function(resource)
     SetModelAsNoLongerNeeded(pedConfig.model)
     createPoint({ coords = coords })
   elseif interaction.type == "location" then
-    createPoint({ coords = interaction.location.coords, marker = interaction.location.marker })
+    createPoint({ coords = interaction.location.coords })
   end
 end)
 
