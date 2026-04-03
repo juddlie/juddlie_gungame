@@ -19,7 +19,9 @@ RegisterNetEvent("gungame:server:createLobby", function(data)
     return
   end
 
-  local lobbyName <const> = data.lobbyName ~= nil and data.lobbyName ~= "" and data.lobbyName or ("%s's Lobby"):format(state.getName(playerId))
+  local lobbyName <const> = data.lobbyName ~= "" and data.lobbyName or
+    ("%s's Lobby"):format(state.getName(playerId))
+   
   if state.lobbies[lobbyName] then
     bridge.notify(playerId, "A lobby with that name already exists", "error")
     return
