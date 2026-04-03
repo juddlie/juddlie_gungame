@@ -1,8 +1,8 @@
-if not GetResourceState("es_extended") == "started" then
-	error("es_extended is not started. Please start es_extended before starting juddlie_gungame.")
+if not GetResourceState("ox_core") == "started" then
+	error("ox_core is not started. Please start ox_core before starting juddlie_gungame.")
 end
 
-local ESX <const> = exports["es_extended"]:getSharedObject()
+local Qbx <const> = exports["qbx_core"]
 
 local bridge <const> = {}
 
@@ -23,22 +23,15 @@ end
 ---@param lobby table
 ---@param reward table
 function bridge.rewardKill(playerId, lobby, reward)
-	local xPlayer <const> = ESX.GetPlayerFromId(playerId)
-	if not xPlayer then return end
-
-	if reward?.account == "money" then
-		xPlayer.addMoney(reward.amount)
-		bridge.notify(playerId, ("You received $%s for killing an opponent!"):format(reward.amount), "success")
-		return
-	end
+	local QbxPlayer <const> = Qbx:GetPlayer(playerId)
+	if not QbxPlayer then return end
 	
 	if reward?.item then
-		xPlayer.addInventoryItem(reward.item, reward.amount)
 		bridge.notify(playerId, ("You received %sx %s for killing an opponent!"):format(reward.amount, reward.item), "success")
 		return
 	end
 
-	xPlayer.addAccountMoney(reward.account, reward.amount)
+	QbxPlayer:AddMoney(playerId, reward.account, reward.amount)
 	bridge.notify(playerId, ("You received $%s in your %s account for killing an opponent!"):format(reward.amount, reward.account), "success")
 end
 
@@ -46,23 +39,16 @@ end
 ---@param lobby table
 ---@param reward table
 function bridge.rewardWin(playerId, lobby, reward)
-	local xPlayer <const> = ESX.GetPlayerFromId(playerId)
-	if not xPlayer then return end
-
-	if reward?.account == "money" then
-		xPlayer.addMoney(reward.amount)
-		bridge.notify(playerId, ("You received $%s for winning the match!"):format(reward.amount), "success")
-		return
-	end
-
+	local QbxPlayer <const> = Qbx:GetPlayer(playerId)
+	if not QbxPlayer then return end
+	
 	if reward?.item then
-		xPlayer.addInventoryItem(reward.item, reward.amount)
 		bridge.notify(playerId, ("You received %sx %s for winning the match!"):format(reward.amount, reward.item), "success")
 		return
 	end
 
-	xPlayer.addAccountMoney(reward.account, reward.amount)
+	QbxPlayer:AddMoney(playerId, reward.account, reward.amount)
 	bridge.notify(playerId, ("You received $%s in your %s account for winning the match!"):format(reward.amount, reward.account), "success")
 end
-
+	
 return bridge
