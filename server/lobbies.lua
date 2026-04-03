@@ -93,12 +93,9 @@ RegisterNetEvent("gungame:server:joinLobby", function(lobbyName, password)
   end
 
   state.addPlayer(lobby, playerId, false)
+  
   bridge.notify(playerId, ("You joined %s"):format(lobby.name), "success")
-  state.sendState(playerId, lobby, {
-    started = false,
-    tier = 1,
-    spectator = false,
-  })
+  state.sendState(playerId, lobby, { started = false, tier = 1, spectator = false, })
 end)
 
 ---@param lobbyName string
@@ -148,7 +145,9 @@ RegisterNetEvent("gungame:server:spectateLobby", function(lobbyName)
     spectator = true,
     targetServerId = targetServerId,
   })
+
   TriggerClientEvent("gungame:client:startMatch", playerId, payload)
+  
   bridge.notify(playerId, ("You are spectating %s"):format(lobby.name), "info")
 end)
 
@@ -162,6 +161,7 @@ RegisterNetEvent("gungame:server:leaveLobby", function()
   end
 
   state.removePlayer(playerId, "You left the lobby")
+
   bridge.notify(playerId, "You left the lobby", "info")
 end)
 
@@ -187,9 +187,7 @@ RegisterNetEvent("gungame:server:changePassword", function(lobbyName, password)
   end
 
   bridge.notify(playerId, "Lobby password updated", "success")
-  state.sendState(playerId, lobby, {
-    started = lobby.started,
-  })
+  state.sendState(playerId, lobby, { started = lobby.started })
 end)
 
 RegisterNetEvent("gungame:server:deleteLobby", function()
@@ -204,6 +202,7 @@ RegisterNetEvent("gungame:server:deleteLobby", function()
   end
 
   state.clearLobby(ownedLobbyName, "The lobby was deleted")
+  
   bridge.notify(playerId, "Lobby deleted", "success")
 end)
 
