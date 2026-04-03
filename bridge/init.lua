@@ -1,19 +1,11 @@
 local config <const> = require("config")
 
-Framework = nil
+local context <const> = IsDuplicityVersion() and "server" or "client"
+local modulePath <const> = ("bridge/%s/%s"):format(config.framework, context)
 
-if not Framework then
-  local context <const> = IsDuplicityVersion() and "server" or "client"
-  local path <const> = ("bridge/%s/%s"):format(config.framework, context)
-  
-  local success, result = pcall(require, path)
-  if not success then
-    error(("Failed to load framework '%s': %s. Please check your config.lua"):format(config.framework, result))
-  end
-  
-  print(("Successfully loaded framework: %s"):format(config.framework))
-
-  Framework = result
+local ok, bridge = pcall(require, modulePath)
+if not ok then
+  error(("Failed to load framework '%s': %s. Please check config.lua"):format(config.framework, bridge))
 end
 
-return Framework
+return bridge
