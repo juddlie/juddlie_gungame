@@ -11,6 +11,10 @@ local function createPoint(data)
     distance = 5.0
   })
 
+  function point:onExit()
+    lib.hideTextUI()
+  end
+
   function point:nearby()
     if self.currentDistance > 2.0 then return end
 
