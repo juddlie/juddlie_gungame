@@ -8,6 +8,7 @@ local weaponOptions <const> = {}
 
 ---@param prefix string
 ---@param value string
+---@return string
 local function getMenuId(prefix, value)
   local sanitized <const> = tostring(value):gsub("[^%w]", "_")
   
