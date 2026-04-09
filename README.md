@@ -24,7 +24,7 @@ A fully featured Gun Game resource for FiveM with progressive weapon tiers, lobb
 
 ## Configuration
 
-Most behavior is driven from [config.lua](config.lua):
+Most behavior is driven from [config.lua](config.lua)
 
 - `config.interaction.type` controls how players open the menu.
 - `config.interaction.command` sets the command name when command mode is enabled.
