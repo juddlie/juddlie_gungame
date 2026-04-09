@@ -133,7 +133,7 @@ RegisterNetEvent("gungame:server:spectateLobby", function(lobbyName)
 
   state.addPlayer(lobby, playerId, true)
 
-  local targetServerId <const> = state.resolveSpectateTarget(lobby, playerId)
+  local targetServerId <const> = state.getSpectateTarget(lobby, playerId)
   local payload <const> = state.getState(lobby, playerId, {
     started = true,
     tier = 1,
